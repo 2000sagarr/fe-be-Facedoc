@@ -6,7 +6,7 @@ from .serializers import *
 from django.contrib.auth import authenticate
 from .renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from . import models
 
 def get_tokens_for_user(user):
@@ -24,7 +24,7 @@ class UserRegistrationView(APIView):
         if serializer.is_valid(raise_exception=True):
             user=serializer.save()
             tokens=get_tokens_for_user(user)
-            return Response({'token':tokens,'msg': 'Registration Success'}, status=status.HTTP_201_CREATED)
+            return Response({'msg': 'Registration Success'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLoginView(APIView):
@@ -56,7 +56,18 @@ class UserRolesView(APIView):
 
         return Response(serializer.data)
 
+class UserLogoutView(APIView):
+    permission_classes = [AllowAny]
+    authentication_classes = ()
 
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 
