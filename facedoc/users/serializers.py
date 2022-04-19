@@ -37,3 +37,7 @@ class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoleAssigned
         fields = ['name']
+
+
+class UserCheckSerializer(serializers.Serializer):
+    email = serializers.CharField(required=False, allow_blank=True, max_length=100)

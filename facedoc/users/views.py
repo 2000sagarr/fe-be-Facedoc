@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from .renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import api_view
 from . import models
 
 def get_tokens_for_user(user):
@@ -68,6 +69,25 @@ class UserLogoutView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST', 'GET'])
+def userExists(request):
+    if request.method == 'POST':
+        serializer = UserCheckSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.data['email']
+            if UserData.objects.filter(email=email).exists():
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(status=status.HTTP_200_OK)
+
+    if request.method == 'GET':
+        serializer = UserCheckSerializer(models.UserData.objects.only('email') ,many = True)
+
+
+
+    return Response(serializer.data)
+
 
 
 
