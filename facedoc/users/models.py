@@ -89,6 +89,9 @@ model : role
 class RoleAssigned(models.Model):
     user = models.ForeignKey(UserData, on_delete = models.CASCADE)
     name = models.CharField(max_length = 100)
+    tenthMarksheet = models.BooleanField(default = True)
+    aadharr = models.BooleanField(default = True)
+    passpord = models.BooleanField(default = True)
 
     def __str__(self):
         return self.name
