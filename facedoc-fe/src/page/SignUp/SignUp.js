@@ -40,52 +40,52 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-	const history = useHistory();
-	const initialFormData = Object.freeze({
-		email: '',
-		fname: '',
+  const history = useHistory();
+  const initialFormData = Object.freeze({
+    email: '',
+    fname: '',
     mname: '',
     lname: '',
     phone: '',
     role: '',
     tc: '',
-		password: '',
+    password: '',
     password2: '',
-	});
+  });
 
-	const [formData, updateFormData] = useState(initialFormData);
+  const [formData, updateFormData] = useState(initialFormData);
 
-	const handleChange = (e) => {
-		updateFormData({
-			...formData,
-			// Trimming any whitespace
-			[e.target.name]: e.target.value.trim(),
-		});
-	};
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
+      // Trimming any whitespace
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(formData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
 
-		axiosInstance
-			.post(`register/`, {
-				email: formData.email,
-				fname: formData.firstName,
+    axiosInstance
+      .post(`register/`, {
+        email: formData.email,
+        fname: formData.firstName,
         mname: formData.middleName,
         lname: formData.lastName,
         phone: formData.PhoneNumber,
         // role fetch is remaining
-        role : "user",
+        role: 'user',
         tc: true,
-				password: formData.password,
+        password: formData.password,
         password2: formData.ConfirmPassword,
-			})
-			.then((res) => {
-				history.push('/signin');
-				console.log(res);
-				console.log(res.data);
-			});
-	};
+      })
+      .then((res) => {
+        history.push('/signin');
+        console.log(res);
+        console.log(res.data);
+      });
+  };
 
   const [value, setValue] = React.useState(0);
   const [roles, setRoles] = React.useState([
@@ -94,6 +94,15 @@ export default function SignUp() {
     'Traffic Police',
     'Passport',
   ]);
+
+  React.useEffect(() => {
+    fetch('http://localhost:8000/user/roles')
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data[0]);
+        setRoles(data[0]);
+      });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -107,7 +116,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
+          <Avatar sx={{ m: 1, bgcolor: 'black' }}></Avatar>
           <Typography component='h1' variant='h5'>
             Sign up
           </Typography>
@@ -164,20 +173,20 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
-              <InputLabel id='demo-simple-select-label'>Role</InputLabel>
-              <Select
-                variant='outlined'
-                labelId='demo-simple-select-label'
-                id='demo-simple-select'
-                label=''
-                onChange={(event) => {
-                  setRoles(event.target.value);
-                }}
-              >
-                {roles.map((role) => (
-                  <MenuItem value={role}>{role}</MenuItem>
-                ))}
-              </Select>
+                <InputLabel id='demo-simple-select-label'>Role</InputLabel>
+                <Select
+                  variant='outlined'
+                  labelId='demo-simple-select-label'
+                  id='demo-simple-select'
+                  label=''
+                  onChange={(event) => {
+                    setRoles(event.target.value);
+                  }}
+                >
+                  {roles.map((role) => (
+                    <MenuItem value={role}>{role}</MenuItem>
+                  ))}
+                </Select>
               </Grid>
               <Grid item xs={12} sm={12}>
                 <TextField
@@ -214,14 +223,6 @@ export default function SignUp() {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value='allowExtraEmails' color='primary' />
-                  }
-                  label='I want to receive inspiration, marketing promotions and updates via email.'
-                />
-              </Grid>
             </Grid>
             <Button
               type='submit'
@@ -241,7 +242,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
