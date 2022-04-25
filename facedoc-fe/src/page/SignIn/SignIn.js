@@ -21,6 +21,7 @@ import home from '../../assets/home.png';
 import { useState } from 'react';
 import axiosInstance from '../../axios';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,53 +77,57 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-	const history = useHistory();
-	const initialFormData = Object.freeze({
-		email: '',
-		password: '',
-	});
+  const history = useHistory();
+  const initialFormData = Object.freeze({
+    email: '',
+    password: '',
+  });
 
-	const [formData, updateFormData] = useState(initialFormData);
+  const [formData, updateFormData] = useState(initialFormData);
 
-	const handleChange = (e) => {
-		updateFormData({
-			...formData,
-			[e.target.name]: e.target.value.trim(),
-		});
-	};
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(formData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
 
-		axiosInstance
-			.post(`login/`, {
-				email: formData.email,
-				password: formData.password,
-			})
-			.then((res) => {
-				localStorage.setItem('access_token', res.data.access);
-				localStorage.setItem('refresh_token', res.data.refresh);
-				axiosInstance.defaults.headers['Authorization'] =
-					'Bearer ' + localStorage.getItem('access_token');
-				history.push('/dashboard');
-				//console.log(res);
-				//console.log(res.data);
-			});
-	};
+    axiosInstance
+      .post(`login/`, {
+        email: formData.email,
+        password: formData.password,
+      })
+      .then((res) => {
+        localStorage.setItem('access_token', res.data.access);
+        localStorage.setItem('refresh_token', res.data.refresh);
+        axiosInstance.defaults.headers['Authorization'] =
+          'Bearer ' + localStorage.getItem('access_token');
+        history.push('/dashboard');
+        //console.log(res);
+        //console.log(res.data);
+      });
+  };
 
   //const [value, setValue] = React.useState(0);
   const [roles, setRoles] = React.useState([
-    'Common User',
-    'License Officer',
-    'Traffic Police',
-    'Passport',
+    { name: 'Common User' },
+    { name: 'License Officer' },
+    { name: 'Traffic Police' },
+    { name: 'Passport' },
   ]);
-  // React.useEffect(()=>{
-  //   fetch("http://localhost:5000/api/role"){
 
-  //   }
-  // },[])
+  React.useEffect(() => {
+    fetch('http://localhost:8000/user/roles')
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log(data[0]);
+        setRoles(data[0]);
+      });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -151,7 +156,7 @@ export default function SignIn() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
+            <Avatar sx={{ m: 1, bgcolor: 'black' }}></Avatar>
             <Typography component='h1' variant='h5'>
               Sign in
             </Typography>
@@ -166,9 +171,7 @@ export default function SignIn() {
                   setRoles(event.target.value);
                 }}
               >
-                {roles.map((role) => (
-                  <MenuItem value={role}>{role}</MenuItem>
-                ))}
+                <MenuItem value={roles.name}>{roles.name}</MenuItem>
               </Select>
 
               <TextField
@@ -213,12 +216,11 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href='/signup' variant='body2'>
-                  {"Don't have an account? Sign Up"}
+                <Link href='/signup' variant='body2' style={{ color: 'black' }}>
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
-            <Copyright sx={{ mt: 5 }} />
           </Box>
         </Grid>
       </Grid>
