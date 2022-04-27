@@ -36,7 +36,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoleAssigned
-        fields = ['name']
+        fields = ['id','name']
 
 
 class UserCheckSerializer(serializers.Serializer):

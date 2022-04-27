@@ -1,9 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import  BaseUserManager, AbstractBaseUser
 
+'''
+model : role
+'''
+
+class RoleAssigned(models.Model):
+    name = models.CharField(max_length = 100)
+    pancard = models.BooleanField(default = False)
+    aadharcard = models.BooleanField(default = False)
+    passpord = models.BooleanField(default = False)
+    
+
+    def __str__(self):
+        return self.name
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, fname, mname, lname, phone, role, tc, password=None, password2=None ):
+    def create_user(self, email, fname, mname, lname,role, phone, tc, password=None, password2=None ):
 
         if not email:
             raise ValueError('Users must have an email address')
@@ -15,7 +28,7 @@ class UserManager(BaseUserManager):
             lname=lname,
             phone=phone,
             tc=tc,
-            role=role,
+            # role=role,
         )
 
         user.set_password(password)
@@ -50,7 +63,9 @@ class UserData(AbstractBaseUser):
     mname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     phone = models.IntegerField()
-    role  = models.CharField(max_length=100)
+    # role  = models.CharField(max_length=100)
+    role = models.ForeignKey(RoleAssigned, on_delete = models.CASCADE, null=True, blank=True, default=None)
+
     tc = models.BooleanField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -82,19 +97,7 @@ class UserData(AbstractBaseUser):
         return self.is_admin
 
 
-'''
-model : role
-'''
 
-class RoleAssigned(models.Model):
-    user = models.ForeignKey(UserData, on_delete = models.CASCADE)
-    name = models.CharField(max_length = 100)
-    tenthMarksheet = models.BooleanField(default = True)
-    aadharr = models.BooleanField(default = True)
-    passpord = models.BooleanField(default = True)
-
-    def __str__(self):
-        return self.name
 
 
 
