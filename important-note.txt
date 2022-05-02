@@ -1,0 +1,11 @@
+django installation
+
+1) pip install django
+2) pip install djangorestframework
+3) pip install Pillow
+4) pip install djangorestframework-simplejwt
+5) pip install django-cors-headers
+
+open facedoc-fe to command prompt
+1)npm install
+
