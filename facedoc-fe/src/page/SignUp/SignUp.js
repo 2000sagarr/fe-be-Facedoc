@@ -53,7 +53,7 @@ export default function SignUp() {
     password2: "",
   });
 
-  const [roleId, setRoleId] = React.useState(1)
+  const [roleId, setRoleId] = React.useState()
   const [roles, setRoles] = React.useState([]);
 
   const [roleValue, setRoleValue] = React.useState("");
@@ -70,14 +70,17 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(roleId, roleValue)
+    // console.log(formData);
+    // console.log(roleId, roleValue)
 
     roles.forEach(item=>{
       if(item.name === roleValue){
         setRoleId(item.id)
       }
     })
+
+    console.log(roleId)
+
     
     axiosInstance
       .post(`register/`, {
@@ -87,14 +90,13 @@ export default function SignUp() {
         lname: formData.lastName,
         phone: formData.PhoneNumber,
         role: roleId,
-        tc: true,
         password: formData.password,
         password2: formData.ConfirmPassword,
       })
       .then((res) => {
         history.push("/signin");
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        // console.log(res.data);
       });
   };
 
@@ -103,10 +105,10 @@ export default function SignUp() {
       .then((resp) => resp.json())
       .then((data) => {
         setRoles(data);
-        console.log(data)
-        data.forEach((item) => {
-          console.log(item.name);
-        });
+        // console.log(data)
+        // data.forEach((item) => {
+        //   console.log(item.name);
+        // });
       });
   }, []);
   return (

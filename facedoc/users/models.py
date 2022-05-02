@@ -16,7 +16,7 @@ class RoleAssigned(models.Model):
         return self.name
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, fname, mname, lname,role, phone, tc, password=None, password2=None ):
+    def create_user(self, email, fname, mname, lname,role, phone, password=None, password2=None ):
 
         if not email:
             raise ValueError('Users must have an email address')
@@ -27,15 +27,14 @@ class UserManager(BaseUserManager):
             mname=mname,
             lname=lname,
             phone=phone,
-            tc=tc,
-            # role=role,
+            role=role,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self,  email, fname, mname, lname,phone, role, tc, password=None):
+    def create_superuser(self,  email, fname, mname, lname,phone, role, password=None):
 
         user = self.create_user(
             email,
@@ -44,7 +43,6 @@ class UserManager(BaseUserManager):
             mname=mname,
             lname=lname,
             phone=phone,
-            tc=tc,
             role=role,
         )
         user.is_admin = True
@@ -63,10 +61,8 @@ class UserData(AbstractBaseUser):
     mname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     phone = models.IntegerField()
-    # role  = models.CharField(max_length=100)
     role = models.ForeignKey(RoleAssigned, on_delete = models.CASCADE, null=True, blank=True, default=None)
 
-    tc = models.BooleanField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -75,7 +71,7 @@ class UserData(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['fname', 'mname', 'lname','phone', 'role', 'tc']
+    REQUIRED_FIELDS = ['fname', 'mname', 'lname','phone', 'role']
 
     def __str__(self):
         return self.email

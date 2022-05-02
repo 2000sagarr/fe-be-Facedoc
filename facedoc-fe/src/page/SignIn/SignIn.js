@@ -1,33 +1,33 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-import home from "../../assets/home.png";
+import home from '../../assets/home.png';
 
-import { useState } from "react";
-import axiosInstance from "../../axios";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import axiosInstance from '../../axios';
+import { useHistory } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
@@ -51,24 +51,24 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
 function Copyright(props) {
   return (
     <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
+      variant='body2'
+      color='text.secondary'
+      align='center'
       {...props}
     >
-      {"Copyright © "}
-      <Link color="inherit" href="/">
+      {'Copyright © '}
+      <Link color='inherit' href='/'>
         Your Website
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
@@ -76,56 +76,57 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const history = useHistory();
-  const initialFormData = Object.freeze({
-    email: "",
-    password: "",
-  });
+	const history = useHistory();
+	const initialFormData = Object.freeze({
+		email: '',
+		password: '',
+	});
 
-  const [formData, updateFormData] = useState(initialFormData);
+	const [formData, updateFormData] = useState(initialFormData);
 
-  const handleChange = (e) => {
-    updateFormData({
-      ...formData,
-      [e.target.name]: e.target.value.trim(),
-    });
-  };
+	const handleChange = (e) => {
+		updateFormData({
+			...formData,
+			[e.target.name]: e.target.value.trim(),
+		});
+	};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		// console.log(formData);
 
-    axiosInstance
-      .post(`login/`, {
-        email: formData.email,
-        password: formData.password,
-      })
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.access);
-        localStorage.setItem("refresh_token", res.data.refresh);
-        axiosInstance.defaults.headers["Authorization"] =
-          "Bearer " + localStorage.getItem("access_token");
-        history.push("/dashboard");
-        //console.log(res);
-        //console.log(res.data);
-      });
-  };
+		axiosInstance
+			.post(`login/`, {
+				email: formData.email,
+				password: formData.password,
+			})
+			.then((res) => {
+        // console.log("Data Access:",res.data.access)
+				localStorage.setItem('access_token', res.data.access);
+				localStorage.setItem('refresh_token', res.data.refresh);
+				axiosInstance.defaults.headers['Authorization'] =
+					'Bearer ' + localStorage.getItem('access_token');
+				history.push('/dashboard');
+				
+			});
+	};
+
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component='main' sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7}>
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100vh",
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100vh',
             }}
           >
-            <img src={home} alt="home" style={{ width: "70%" }} />
+            <img src={home} alt='home' style={{ width: '70%' }} />
           </div>
         </Grid>
         <Grid item xs={12} sm={8} md={5}>
@@ -133,42 +134,46 @@ export default function SignIn() {
             sx={{
               my: 10,
               mx: 10,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}></Avatar>
-            <Typography component="h1" variant="h5">
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
+            <Typography component='h1' variant='h5'>
               Sign in
             </Typography>
             <FormControl fullWidth sx={{ margin: 5 }}>
+              
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
                 onChange={handleChange}
               />
               <TextField
-                margin="normal"
+                margin='normal'
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='current-password'
                 onChange={handleChange}
               />
-
+              {/* <FormControlLabel
+                control={<Checkbox value='remember' color='primary' />}
+                label='Remember me'
+              /> */}
               <Button
-                type="submit"
+                type='submit'
                 fullWidth
-                variant="contained"
+                variant='contained'
                 sx={{ mt: 3, mb: 2 }}
                 onClick={handleSubmit}
               >
@@ -177,12 +182,12 @@ export default function SignIn() {
             </FormControl>
             {/* <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href='#' variant='body2'>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <Link href='/signup' variant='body2'>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
