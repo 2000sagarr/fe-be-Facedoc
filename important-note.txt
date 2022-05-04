@@ -9,3 +9,6 @@ django installation
 open facedoc-fe to command prompt
 1)npm install
 
+
+Admin Panel Email: admin@gmail.com
+            password: admin
