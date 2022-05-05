@@ -92,6 +92,12 @@ class UserData(AbstractBaseUser):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
+class UserInfo(models.Model):
+    name = models.CharField(max_length=100, primary_key=True)
+    pancard = models.ImageField(blank=False)
+    aadharcard = models.ImageField(blank=False)
+    passport = models.ImageField(blank=False)
+
 
 
 
