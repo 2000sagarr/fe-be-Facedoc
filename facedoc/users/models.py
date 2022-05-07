@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import  BaseUserManager, AbstractBaseUser
-
+import os
 '''
 model : role
 '''
@@ -93,10 +93,17 @@ class UserData(AbstractBaseUser):
         return self.is_admin
 
 class UserInfo(models.Model):
+
+    def get_image_path(instance, filename):
+        return os.path.join('userFiles', instance.name, filename)
+
     name = models.CharField(max_length=100, primary_key=True)
-    pancard = models.ImageField(blank=False)
-    aadharcard = models.ImageField(blank=False)
-    passport = models.ImageField(blank=False)
+    pancard = models.ImageField(upload_to = get_image_path, default = 'userFiles/default.png', blank=True, null = True)
+    aadharcard = models.ImageField(upload_to =get_image_path, default = 'userFiles/default.png', blank=True, null = True)
+    passport = models.ImageField(upload_to = get_image_path , default = 'userFiles/default.png', blank=True, null = True)
+
+    def __str__(self):
+        return self.name + ' ' + 'UserInfo'
 
 
 

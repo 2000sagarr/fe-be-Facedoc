@@ -9,6 +9,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view
 from . import models
+from rest_framework.parsers import MultiPartParser, FormParser
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -70,6 +71,27 @@ class UserLogoutView(APIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class UserInfoView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def get(self, request):
+        allUserinfo = models.UserInfo.objects.all()
+        serializer = UserInfoSerializer(allUserinfo, many = True)
+
+        return Response(serializer.data)
+
+    def post(self, request, format = None):
+        data = request.data
+        serializer = UserInfoSerializer(data = data)
+
+        if serializer.is_valid():
+            print(data)
+            serializer.save()
+            return Response({'msg':'added'}, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['POST', 'GET'])
 def userExists(request):
     if request.method == 'POST':
@@ -87,6 +109,7 @@ def userExists(request):
 
 
     return Response(serializer.data)
+
 
 
 

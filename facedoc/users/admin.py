@@ -33,3 +33,4 @@ class UserAdmin(BaseUserAdmin):
 # Now register the new UserAdmin...
 admin.site.register(models.UserData, UserAdmin)
 admin.site.register(models.RoleAssigned)
+admin.site.register(models.UserInfo)

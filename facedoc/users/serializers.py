@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import UserData, RoleAssigned, UserInfo
+from drf_extra_fields.fields import Base64ImageField
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
 
@@ -42,6 +43,7 @@ class UserCheckSerializer(serializers.Serializer):
     email = serializers.CharField(required=False, allow_blank=True, max_length=100)
 
 class UserInfoSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = UserInfo
-        fields = ['name']
+        fields = '__all__'
