@@ -4,7 +4,7 @@ import SignIn from './page/SignIn/SignIn';
 import SignUp from './page/SignUp/SignUp';
 import Landing from './page/Landing/Landing.js';
 import User from './page/UserProfile/User.js';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Dashboard from './page/Dashboard.js/Dashboard';
 
 

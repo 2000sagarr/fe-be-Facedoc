@@ -1,17 +1,9 @@
 import React from "react";
-import "./Dashboard.css";
-import TextField from "@mui/material/TextField";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import { createTheme, ThemeProvider, Container, Typography, CssBaseline, Box } from "@mui/material";
+import { Form, Card, Button } from "react-bootstrap";
 import Navbar from "../../components/Navbar";
-import axios from "axios";
+import "./Dashboard.css";
+
 
 const theme = createTheme();
 function Dashboard() {
@@ -39,29 +31,16 @@ function Dashboard() {
 								}}
 							>
 								<Typography component='h1' variant='h5'>
-									Get User Details by:
+									Upload Image
 								</Typography>
-								<Grid container spacing={2}>
-									<Grid item xs={13}>
-										<label htmlFor=''>Enter Name</label>
-										<TextField
-											required
-											fullWidth
-											id='name'
-											label='Name'
-											name='name'
-											autoComplete='name'
-										/>
-										<Form.Group controlId='formFileLg' className='mb-3'>
-											<br />
-											<Form.Label>Upload File</Form.Label>
-											<Form.Control type='file' size='lg' />
-										</Form.Group>
-										<Button variant='dark' size='lg'>
-											Submit
-										</Button>
-									</Grid>
-								</Grid>
+								<Form.Group controlId='formFileLg' className='mb-3'>
+									<br />
+									<Form.Label>Select image:</Form.Label>
+									<Form.Control type='file' size='mg' />
+								</Form.Group>
+								<Button variant='dark' size='md'>
+									Submit
+								</Button>
 							</Box>
 						</Card.Body>
 					</Card>

@@ -1,23 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-
+import {
+  Typography, Box, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox,
+  Link, InputLabel, Grid, MenuItem, FormControl, Select, createTheme, ThemeProvider
+} from '@mui/material';
 import home from '../../assets/home.png';
-
 import { useState } from 'react';
 import axiosInstance from '../../axios';
 import { useHistory } from 'react-router-dom';
@@ -76,40 +63,40 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-	const history = useHistory();
-	const initialFormData = Object.freeze({
-		email: '',
-		password: '',
-	});
+  const history = useHistory();
+  const initialFormData = Object.freeze({
+    email: '',
+    password: '',
+  });
 
-	const [formData, updateFormData] = useState(initialFormData);
+  const [formData, updateFormData] = useState(initialFormData);
 
-	const handleChange = (e) => {
-		updateFormData({
-			...formData,
-			[e.target.name]: e.target.value.trim(),
-		});
-	};
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		// console.log(formData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log(formData);
 
-		axiosInstance
-			.post(`login/`, {
-				email: formData.email,
-				password: formData.password,
-			})
-			.then((res) => {
+    axiosInstance
+      .post(`login/`, {
+        email: formData.email,
+        password: formData.password,
+      })
+      .then((res) => {
         // console.log("Data Access:",res.data.access)
-				localStorage.setItem('access_token', res.data.access);
-				localStorage.setItem('refresh_token', res.data.refresh);
-				axiosInstance.defaults.headers['Authorization'] =
-					'Bearer ' + localStorage.getItem('access_token');
-				history.push('/dashboard');
-				
-			});
-	};
+        localStorage.setItem('access_token', res.data.access);
+        localStorage.setItem('refresh_token', res.data.refresh);
+        axiosInstance.defaults.headers['Authorization'] =
+          'Bearer ' + localStorage.getItem('access_token');
+        history.push('/dashboard');
+
+      });
+  };
 
 
   return (
@@ -144,7 +131,7 @@ export default function SignIn() {
               Sign in
             </Typography>
             <FormControl fullWidth sx={{ margin: 5 }}>
-              
+
               <TextField
                 margin='normal'
                 required

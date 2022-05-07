@@ -1,9 +1,12 @@
 import React from 'react';
 import './Landing.css';
 import { Link } from 'react-router-dom';
+import Navbar from "../../components/Navbar";
 
 function Home() {
   return (
+    <>
+    <Navbar />
     <div className='home-container'>
       <div>
         <span style={{ fontSize: 108, fontWeight: 500 }}>Face</span>
@@ -26,6 +29,7 @@ function Home() {
         </Link>
       </div>
     </div>
+    </>
   );
 }
 
