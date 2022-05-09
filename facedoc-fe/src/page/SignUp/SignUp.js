@@ -87,10 +87,6 @@ export default function SignUp() {
       .then((resp) => resp.json())
       .then((data) => {
         setRoles(data);
-        // console.log(data)
-        // data.forEach((item) => {
-        //   console.log(item.name);
-        // });
       });
   }, []);
   return (

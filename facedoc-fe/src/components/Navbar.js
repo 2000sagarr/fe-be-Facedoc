@@ -20,9 +20,6 @@ export default function MenuAppBar() {
   const history = useHistory();
 
   const logout = () => {
-    // axiosInstance.post('logout/', {
-    //   refresh_token: localStorage.getItem('refresh_token'),
-    // });
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     axiosInstance.defaults.headers['Authorization'] = null;
