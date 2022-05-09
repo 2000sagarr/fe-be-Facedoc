@@ -5,20 +5,22 @@ import SignUp from './page/SignUp/SignUp';
 import Landing from './page/Landing/Landing.js';
 import User from './page/UserProfile/User.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dashboard from './page/Dashboard.js/Dashboard';
-
+import Dashboard from './page/Dashboard/Dashboard';
+import Navbar from './components/Navbar';
+import err404 from './page/Error/Error';
+import err500 from './page/Error/ServerError';
 
 function App() {
-
   return (
     <div>
-      
       <Switch>
         <Route exact path='/' component={Landing} />
         <Route path='/signin' component={SignIn} />
         <Route path='/signup' component={SignUp} />
         <Route path='/user' component={User} />
         <Route path='/dashboard' component={Dashboard} />
+        <Route path='/server-error' component={err500} />
+        <Route path='*' component={err404} />
       </Switch>
     </div>
   );

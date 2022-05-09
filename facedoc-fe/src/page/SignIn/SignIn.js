@@ -1,13 +1,27 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Typography, Box, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox,
-  Link, InputLabel, Grid, MenuItem, FormControl, Select, createTheme, ThemeProvider
+  Typography,
+  Box,
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  InputLabel,
+  Grid,
+  MenuItem,
+  FormControl,
+  Select,
+  createTheme,
+  ThemeProvider,
 } from '@mui/material';
 import home from '../../assets/home.png';
-import { useState } from 'react';
 import axiosInstance from '../../axios';
 import { useHistory } from 'react-router-dom';
+import './SignIn.css';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,24 +54,6 @@ function a11yProps(index) {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
   };
-}
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant='body2'
-      color='text.secondary'
-      align='center'
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color='inherit' href='/'>
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
 }
 
 const theme = createTheme();
@@ -94,10 +90,8 @@ export default function SignIn() {
         axiosInstance.defaults.headers['Authorization'] =
           'Bearer ' + localStorage.getItem('access_token');
         history.push('/dashboard');
-
       });
   };
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -113,25 +107,30 @@ export default function SignIn() {
               height: '100vh',
             }}
           >
-            <img src={home} alt='home' style={{ width: '70%' }} />
+            <img
+              src={home}
+              alt='home'
+              style={{ width: '70%' }}
+              className='img-anim'
+            />
           </div>
         </Grid>
         <Grid item xs={12} sm={8} md={5}>
           <Box
             sx={{
-              my: 10,
               mx: 10,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              height: '100vh',
+              justifyContent: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
+            <Avatar sx={{ m: 1, bgcolor: 'black' }}></Avatar>
             <Typography component='h1' variant='h5'>
               Sign in
             </Typography>
             <FormControl fullWidth sx={{ margin: 5 }}>
-
               <TextField
                 margin='normal'
                 required
@@ -161,7 +160,8 @@ export default function SignIn() {
                 type='submit'
                 fullWidth
                 variant='contained'
-                sx={{ mt: 3, mb: 2 }}
+                className='button-submit'
+                sx={{ mt: 3, mb: 2, bgcolor: 'black' }}
                 onClick={handleSubmit}
               >
                 Sign In
@@ -179,7 +179,6 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid> */}
-            <Copyright sx={{ mt: 5 }} />
           </Box>
         </Grid>
       </Grid>

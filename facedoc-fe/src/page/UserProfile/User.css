@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
 .home-column{
@@ -10,4 +11,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: auto;
+}
+
+.name{
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.vertical-line{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15px; 
+    height: 500px;
+    background-color: black;
 }
