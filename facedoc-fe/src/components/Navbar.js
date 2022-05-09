@@ -20,9 +20,9 @@ export default function MenuAppBar() {
   const history = useHistory();
 
   const logout = () => {
-    axiosInstance.post('logout/', {
-      refresh_token: localStorage.getItem('refresh_token'),
-    });
+    // axiosInstance.post('logout/', {
+    //   refresh_token: localStorage.getItem('refresh_token'),
+    // });
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     axiosInstance.defaults.headers['Authorization'] = null;
@@ -43,22 +43,22 @@ export default function MenuAppBar() {
 
   const [name, setName] = useState('');
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/user/profile', {
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: 'Bearer' + localStorage.getItem('access_token'),
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8000/user/profile', {
+  //       headers: {
+  //         'Content-type': 'application/json',
+  //         Authorization: 'Bearer' + localStorage.getItem('access_token'),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
 
-        const { fname, lname } = res.data;
-        setName(fname + ' ' + lname);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  //       const { fname, lname } = res.data;
+  //       setName(fname + ' ' + lname);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
