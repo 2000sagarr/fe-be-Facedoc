@@ -4,6 +4,7 @@ import {
   Button,
   CssBaseline,
   TextField,
+  FormControl,
   FormControlLabel,
   Checkbox,
   Link,
@@ -91,76 +92,124 @@ export default function SignUp() {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      <Container component='main' maxWidth='sm'>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'black' }}></Avatar>
-          <Typography component='h1' variant='h5'>
-            Sign up
-          </Typography>
-          <Box
-            component='form'
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Grid container>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100vh',
+              backgroundColor: 'black',
+            }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                  autoComplete='email'
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  autoComplete='given-name'
-                  name='firstName'
-                  required
-                  fullWidth
-                  id='firstName'
-                  label='First Name'
-                  autoFocus
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id='middleName'
-                  label='Middle Name'
-                  name='middleName'
-                  autoComplete='family-name'
-                  onChange={handleChange}
-                />
-              </Grid>{' '}
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id='lastName'
-                  label='Last Name'
-                  name='lastName'
-                  autoComplete='family-name'
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={12}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                height: '100vh',
+              }}
+            >
+              <Typography
+                component='h1'
+                variant='h1'
+                sx={{ fontFamily: 'Roboto' }}
+              >
+                Register
+              </Typography>
+              <Typography component='h1' variant='h1' sx={{ fontWeight: 700 }}>
+                With Us.
+              </Typography>
+            </div>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100vh',
+            }}
+          >
+            <Box
+              component='form'
+              noValidate
+              onSubmit={handleSubmit}
+              elevate={5}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'white',
+              }}
+            >
+              <TextField
+                variant='filled'
+                required
+                fullWidth
+                id='email'
+                label='Email Address'
+                name='email'
+                autoComplete='email'
+                onChange={handleChange}
+                sx={{ width: '50vh', marginBottom: 1 }}
+              />
+              <TextField
+                variant='filled'
+                autoComplete='given-name'
+                name='firstName'
+                required
+                fullWidth
+                id='firstName'
+                label='First Name'
+                autoFocus
+                onChange={handleChange}
+                sx={{ width: '50vh', marginBottom: 1 }}
+              />
+              <TextField
+                variant='filled'
+                required
+                fullWidth
+                id='middleName'
+                label='Middle Name'
+                name='middleName'
+                autoComplete='family-name'
+                onChange={handleChange}
+                sx={{ width: '50vh', marginBottom: 1 }}
+              />
+              <TextField
+                variant='filled'
+                required
+                fullWidth
+                id='lastName'
+                label='Last Name'
+                name='lastName'
+                autoComplete='family-name'
+                onChange={handleChange}
+                sx={{ width: '50vh', marginBottom: 1 }}
+              />
+              <FormControl>
                 <InputLabel id='demo-simple-select-label'>Role</InputLabel>
                 <Select
-                  variant='outlined'
+                  variant='filled'
                   labelId='demo-simple-select-label'
                   id='demo-simple-select'
                   label=''
@@ -169,7 +218,7 @@ export default function SignUp() {
                     setRoleValue(event.target.value);
                   }}
                   placeholder='Role'
-                  style={{ width: 550 }}
+                  sx={{ width: '50vh', marginBottom: 1 }}
                 >
                   {roles.map((data) => (
                     <MenuItem key={data.name} value={data.name}>
@@ -177,55 +226,61 @@ export default function SignUp() {
                     </MenuItem>
                   ))}
                 </Select>
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id='number'
-                  label='Phone Number'
-                  name='PhoneNumber'
-                  autoComplete='family-name'
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='new-password'
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name='ConfirmPassword'
-                  label='Confirm Password'
-                  type='password'
-                  id='confirmPassword'
-                  autoComplete='new-password'
-                  onChange={handleChange}
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2, backgroundColor: 'black' }}
-              onClick={handleSubmit}
-            >
-              Sign Up
-            </Button>
-          </Box>
-        </Box>
-      </Container>
+              </FormControl>
+              <TextField
+                required
+                fullWidth
+                id='number'
+                label='Phone Number'
+                name='PhoneNumber'
+                autoComplete='family-name'
+                onChange={handleChange}
+                sx={{ width: '50vh', marginBottom: 1 }}
+                variant='filled'
+              />
+              <TextField
+                required
+                fullWidth
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
+                autoComplete='new-password'
+                onChange={handleChange}
+                sx={{ width: '50vh', marginBottom: 1 }}
+                variant='filled'
+              />
+              <TextField
+                required
+                fullWidth
+                name='ConfirmPassword'
+                label='Confirm Password'
+                type='password'
+                id='confirmPassword'
+                autoComplete='new-password'
+                onChange={handleChange}
+                sx={{ width: '50vh', marginBottom: 1 }}
+                variant='filled'
+              />
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                  backgroundColor: 'black',
+                  width: '50vh',
+                  marginBottom: 1,
+                }}
+                onClick={handleSubmit}
+              >
+                Sign Up
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
     </ThemeProvider>
   );
 }

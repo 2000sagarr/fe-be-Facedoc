@@ -1,12 +1,19 @@
 import React from 'react';
-import './Landing.css';
 import { Link } from 'react-router-dom';
-import Navbar from "../../components/Navbar";
+import Navbar from '../../components/Navbar';
 
+import './Landing.css';
 function Home() {
   return (
-    <>
-    <div className='home-container'>
+    <div
+      className='home-container'
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <div>
         <span style={{ fontSize: 108, fontWeight: 500 }}>Face</span>
         <span style={{ fontSize: 108, fontWeight: 100 }}>Doc</span>
@@ -22,13 +29,12 @@ function Home() {
         <Link
           to='/signin'
           className='home-link'
-          style={{ border: '2px black solid' }}
+          style={{ border: '2px black solid', color: 'black' }}
         >
           SignIn
         </Link>
       </div>
     </div>
-    </>
   );
 }
 

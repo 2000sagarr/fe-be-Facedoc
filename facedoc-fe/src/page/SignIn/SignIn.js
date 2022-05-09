@@ -83,7 +83,7 @@ export default function SignIn() {
       })
       .then((res) => {
         localStorage.setItem('access_token', res.data.token.access);
-        localStorage.setItem('refresh_token', res.data.token.access);
+        localStorage.setItem('refresh_token', res.data.token.refresh);
         axiosInstance.defaults.headers['Authorization'] =
           'Bearer ' + localStorage.getItem('access_token');
         history.push('/dashboard');

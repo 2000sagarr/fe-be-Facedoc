@@ -16,12 +16,10 @@ import './User.css';
 import Navbar from '../../components/Navbar';
 function User() {
   const [loadProfile, setLoadProfile] = useState(true);
-  const [profile, setProfile] = useState({ });
-
-  
+  const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    console.log("Profile.")
+    console.log('Profile.');
     axios
       .get('http://localhost:8000/user/profile', {
         headers: {
@@ -30,9 +28,9 @@ function User() {
         },
       })
       .then((res) => {
-        console.log(res.data)
+        localStorage.setItem('profile', res.data.name);
+        console.log(res.data);
         setProfile(res.data);
-
       })
       .catch((err) => console.log(err));
   }, []);
@@ -51,11 +49,11 @@ function User() {
                   src={profile.picture}
                 ></Avatar>
               )}
+              <p className='name'>{profile.fname + ' ' + profile.lname}</p>
 
-              <p className='name'>
-                {profile.fname + ' ' + profile.lname}
+              <p>
+                {profile.role} | {profile.id}
               </p>
-              <p>{profile.role}</p>
             </div>
           </Grid>
           <Grid item sm={1} display={{ xs: 'none', sm: 'flex' }}>

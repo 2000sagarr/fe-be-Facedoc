@@ -40,22 +40,23 @@ export default function MenuAppBar() {
 
   const [name, setName] = useState('');
 
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:8000/user/profile', {
-  //       headers: {
-  //         'Content-type': 'application/json',
-  //         Authorization: 'Bearer' + localStorage.getItem('access_token'),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/user/profile', {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
 
-  //       const { fname, lname } = res.data;
-  //       setName(fname + ' ' + lname);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+        const { fname, lname } = res.data;
+        setName(fname + ' ' + lname);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -82,7 +83,17 @@ export default function MenuAppBar() {
               </Link>
             </Typography>
             {auth && (
-              <div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Link to='/user' style={{ color: 'white', p: 1 }}>
+                  {name}
+                </Link>
                 <IconButton
                   size='large'
                   aria-label='account of current user'
@@ -91,7 +102,7 @@ export default function MenuAppBar() {
                   onClick={handleMenu}
                   color='inherit'
                 >
-                  <AccountCircle /> <Typography padding={1}>{name}</Typography>
+                  <AccountCircle />
                 </IconButton>
                 <Menu
                   id='menu-appbar'
@@ -109,12 +120,18 @@ export default function MenuAppBar() {
                   onClose={handleClose}
                 >
                   <MenuItem>
-                    <Link className='home-link' to='/user'>
+                    <Link
+                      style={{ color: 'black', textDecoration: 'none' }}
+                      to='/user'
+                    >
                       Profile
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={logout}>
-                    <Link className='home-link' to='/signin'>
+                    <Link
+                      style={{ color: 'black', textDecoration: 'none' }}
+                      to='/signin'
+                    >
                       Logout
                     </Link>
                   </MenuItem>

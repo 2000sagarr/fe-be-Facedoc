@@ -1,5 +1,5 @@
 .img-anim{
-    animation: roll 3s infinite;
+    animation: roll 3s 3s;
 }
 
 .button-submit:hover{

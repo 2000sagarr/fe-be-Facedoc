@@ -12,7 +12,7 @@ function Error() {
       }}
     >
       <img src={img} alt='404 error page not found' style={{ width: '40vw' }} />
-      <h1>Lost? Let's take you back to the Landing?</h1>
+      <h3>Lost? Let's take you back to the Landing?</h3>
       <Link
         to='/'
         style={{

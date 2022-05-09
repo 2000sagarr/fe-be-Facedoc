@@ -6,7 +6,6 @@ import {
   Typography,
   CssBaseline,
   Box,
-  Paper,
 } from '@mui/material';
 import { Form, Card, Button } from 'react-bootstrap';
 import Navbar from '../../components/Navbar';
@@ -26,29 +25,32 @@ function Dashboard() {
     >
       <Navbar />
       <ThemeProvider theme={theme}>
-        <Box
-          component={Paper}
-          elevation={5}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: 5,
-            borderRadius: 5,
-          }}
-        >
-          <Typography component='h1' variant='h5'>
-            Upload Image
-          </Typography>
-          <Form.Group controlId='formFileLg' className='mb-3'>
-            <br />
-            <Form.Label>Select image:</Form.Label>
-            <Form.Control type='file' size='mg' />
-          </Form.Group>
-          <Button variant='dark' size='lg'>
-            Submit
-          </Button>
-        </Box>
+        <Container component='main' maxWidth='sm'>
+          <Card>
+            <Card.Body>
+              <CssBaseline />
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography component='h1' variant='h5'>
+                  Upload Image
+                </Typography>
+                <Form.Group controlId='formFileLg' className='mb-3'>
+                  <br />
+                  <Form.Label>Select image:</Form.Label>
+                  <Form.Control type='file' size='mg' />
+                </Form.Group>
+                <Button variant='dark' size='md'>
+                  Submit
+                </Button>
+              </Box>
+            </Card.Body>
+          </Card>
+        </Container>
       </ThemeProvider>
     </div>
   );
