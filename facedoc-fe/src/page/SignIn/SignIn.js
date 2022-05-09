@@ -76,17 +76,14 @@ export default function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
-
     axiosInstance
       .post(`login/`, {
         email: formData.email,
         password: formData.password,
       })
       .then((res) => {
-        // console.log("Data Access:",res.data.access)
-        localStorage.setItem('access_token', res.data.access);
-        localStorage.setItem('refresh_token', res.data.refresh);
+        localStorage.setItem('access_token', res.data.token.access);
+        localStorage.setItem('refresh_token', res.data.token.access);
         axiosInstance.defaults.headers['Authorization'] =
           'Bearer ' + localStorage.getItem('access_token');
         history.push('/dashboard');

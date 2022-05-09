@@ -11,26 +11,31 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
-
+import axios from 'axios';
 import './User.css';
 import Navbar from '../../components/Navbar';
 function User() {
   const [loadProfile, setLoadProfile] = useState(true);
-  const [profile, setProfile] = useState({
-    firstName: 'John',
-    middleName: 'Suresh',
-    lastName: 'Doe',
-    email: 'johndoe@gmail.com',
-    dob: '19/07/2001',
-    role: 'Traffic Police',
-  });
+  const [profile, setProfile] = useState({ });
+
+  
 
   useEffect(() => {
-    fetch('')
-      .then((resp) => resp.json())
-      .then((data) => setProfile(data));
-  }, [profile]);
+    console.log("Profile.")
+    axios
+      .get('http://localhost:8000/user/profile', {
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('access_token'),
+        },
+      })
+      .then((res) => {
+        console.log(res.data)
+        setProfile(res.data);
 
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <>
       <Navbar />
@@ -48,7 +53,7 @@ function User() {
               )}
 
               <p className='name'>
-                {profile.firstName + ' ' + profile.lastName}
+                {profile.fname + ' ' + profile.lname}
               </p>
               <p>{profile.role}</p>
             </div>
@@ -73,19 +78,15 @@ function User() {
                   </TableRow>
                   <TableRow>
                     <TableCell align='left'>First Name</TableCell>
-                    <TableCell align='left'>{profile.firstName}</TableCell>
+                    <TableCell align='left'>{profile.fname}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell align='left'>Middle Name</TableCell>
-                    <TableCell align='left'>{profile.middleName}</TableCell>
+                    <TableCell align='left'>{profile.mname}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell align='left'>Last Name</TableCell>
-                    <TableCell align='left'>{profile.lastName}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align='left'>DOB</TableCell>
-                    <TableCell align='left'>{profile.dob}</TableCell>
+                    <TableCell align='left'>{profile.lname}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell align='left'>Email</TableCell>
