@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view
 from . import models
 
+
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
 
@@ -18,44 +19,52 @@ def get_tokens_for_user(user):
         'access': str(refresh.access_token),
     }
 
+
 class UserRegistrationView(APIView):
     renderer_classes = [UserRenderer]
+
     def post(self, request, format=None):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            user=serializer.save()
+            user = serializer.save()
             # tokens=get_tokens_for_user(user)
             return Response({'msg': 'Registration Success'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class UserLoginView(APIView):
     renderer_classes = [UserRenderer]
+
     def post(self, request, format=None):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            email=serializer.data.get('email')
+            email = serializer.data.get('email')
             password = serializer.data.get('password')
-            user= authenticate(email=email, password=password)
+            user = authenticate(email=email, password=password)
             if user is not None:
                 tokens = get_tokens_for_user(user)
-                return Response({'token':tokens,'msg': 'Login Success'}, status=status.HTTP_200_OK)
+                return Response({'token': tokens, 'msg': 'Login Success'}, status=status.HTTP_200_OK)
             else:
                 return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
-class UserProfileView(APIView):
-        renderer_classes = [UserRenderer]
-        permission_classes = [IsAuthenticated]
 
-        def get(self, request, format=None):
-            serializer = UserProfileSerializer(request.user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+class UserProfileView(APIView):
+    renderer_classes = [UserRenderer]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        serializer = UserProfileSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class UserRolesView(APIView):
 
     def get(self, request):
-        serializer = RoleSerializer(models.RoleAssigned.objects.all() ,many = True)
+        serializer = RoleSerializer(
+            models.RoleAssigned.objects.all(), many=True)
 
         return Response(serializer.data)
+
 
 class UserLogoutView(APIView):
     permission_classes = [AllowAny]
@@ -70,6 +79,7 @@ class UserLogoutView(APIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['POST', 'GET'])
 def userExists(request):
     if request.method == 'POST':
@@ -82,16 +92,7 @@ def userExists(request):
                 return Response(status=status.HTTP_200_OK)
 
     if request.method == 'GET':
-        serializer = UserCheckSerializer(models.UserData.objects.only('email') ,many = True)
-
-
+        serializer = UserCheckSerializer(
+            models.UserData.objects.only('email'), many=True)
 
     return Response(serializer.data)
-
-
-
-
-
-
-
-

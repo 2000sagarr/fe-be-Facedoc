@@ -37,3 +37,10 @@ input[type=file]::file-selector-button {
     border-radius: 4px;
 }
 
+.cell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}

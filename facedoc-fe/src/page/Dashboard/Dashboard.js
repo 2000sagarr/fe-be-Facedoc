@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Typography,
+  Box,
   Card,
   Grid,
   CardContent,
@@ -12,8 +13,8 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Avatar,
 } from '@mui/material';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Navbar from '../../components/Navbar';
 import './Dashboard.css';
 import axiosInstance from '../../axios';
@@ -23,25 +24,30 @@ function Dashboard() {
   const [load, setLoad] = useState(true);
   const [file, setFile] = useState('');
   const [uploadedFile, setUploadedFile] = useState('');
-  const [documents, setDocuments] = useState([
-    {
-      name: 'Aadhar',
-      link: '#',
-    },
-    {
-      name: 'Driving License',
-      link: '#',
-    },
-    {
-      name: 'Passport',
-      link: '#',
-    },
-  ]);
+  const [documents, setDocuments] = useState({
+    name: 'John Doe',
+    picture: '',
+    docs: [
+      {
+        name: 'Aadhar',
+        link: 'https://thumbs.dreamstime.com/b/beautiful-rain-forest-ang-ka-nature-trail-doi-inthanon-national-park-thailand-36703721.jpg',
+      },
+      {
+        name: 'Driving License',
+        link: '#',
+      },
+      {
+        name: 'Passport',
+        link: '#',
+      },
+    ],
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const Upload = async () => {
+      // Temp route for accessing
       axiosInstance
         .post('/documents')
         .then((resp) => resp.json())
@@ -82,17 +88,14 @@ function Dashboard() {
         >
           <Card
             sx={{
-              boxShadow: 7,
               borderRadius: 3,
               padding: 3,
-              width: '80%',
+              width: '90%',
               margin: 20,
               textAlign: 'center',
               backgroundColor: '#fbfbfb',
             }}
-            elevation={10}
           >
-            <CardContent></CardContent>
             <CardActions
               sx={{
                 fontWeight: 700,
@@ -128,45 +131,47 @@ function Dashboard() {
                 </label>
               </form>
               {load && (
-                <TableContainer
+                <Box
                   component={Paper}
+                  elevation={5}
                   sx={{
                     margin: 10,
                     borderRadius: 4,
+                    width: '80%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
-                  elevation={5}
                 >
-                  <Table aria-label='simple table'>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell
-                          colSpan={12}
-                          align='center'
-                          style={{ fontWeight: 700, fontSize: '18pt' }}
-                        >
-                          Documents
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {documents.map((document) => (
-                        <TableRow>
-                          <TableCell align='center'>{document.name}</TableCell>
-                          <TableCell align='center'>
-                            {' '}
-                            <a
-                              className='link-btn'
-                              target='_blank'
-                              href={document.link}
-                            >
-                              Open
-                            </a>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                  <Avatar
+                    sx={{ m: 3, width: 150, height: 150 }}
+                    src={documents.picture}
+                  ></Avatar>
+                  <p>{documents.name}</p>
+                  <TableContainer component={Paper}>
+                    <Table aria-label='simple table'>
+                      <TableBody>
+                        {documents.docs.map((document) => (
+                          <TableRow>
+                            <TableCell align='center'>
+                              {document.name}
+                            </TableCell>
+                            <TableCell align='center'>
+                              <a
+                                className='link-btn'
+                                target='_blank'
+                                href={document.link}
+                              >
+                                Open
+                              </a>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Box>
               )}
               {!load && (
                 <img
