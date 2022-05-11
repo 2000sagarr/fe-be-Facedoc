@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import  BaseUserManager, AbstractBaseUser
 import os
+from django.core.validators import RegexValidator
 '''
 model : role
 '''
@@ -60,7 +61,9 @@ class UserData(AbstractBaseUser):
     fname = models.CharField(max_length=50)
     mname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
-    phone = models.IntegerField()
+    phone_regex = RegexValidator(regex=r'^(0|91)?[7-9][0-9]{9}$',
+                                 message="Phone number must be entered in the format: '91723456784'. Up to 12 digits allowed.")
+    phone = models.CharField(validators=[phone_regex], max_length=17, blank=False, unique=True)  # validators should be a list
     role = models.ForeignKey(RoleAssigned, on_delete = models.CASCADE, null=True, blank=True, default=None)
 
     is_active = models.BooleanField(default=True)
@@ -94,15 +97,21 @@ class UserData(AbstractBaseUser):
 
 class UserInfo(models.Model):
 
+# id should be the name of folder (remaining task)
+
+    id = models.AutoField(primary_key=True, null=False)
+
     def get_image_path(instance, filename):
+        print(instance.id)
         return os.path.join('userFiles', instance.name, filename)
 
-    name = models.CharField(max_length=100, primary_key=True)
+    name = models.CharField(max_length=20, null=True, blank=True)
     pancard = models.ImageField(upload_to = get_image_path, default = 'userFiles/default.png', blank=True, null = True)
     aadharcard = models.ImageField(upload_to =get_image_path, default = 'userFiles/default.png', blank=True, null = True)
     passport = models.ImageField(upload_to = get_image_path , default = 'userFiles/default.png', blank=True, null = True)
 
     def __str__(self):
+
         return self.name + ' ' + 'UserInfo'
 
 

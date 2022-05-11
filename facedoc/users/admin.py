@@ -29,8 +29,11 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email', 'id')
     filter_horizontal = ()
 
+class UserInfoAdmin(admin.ModelAdmin):
+    list_display = ('id','name')
+
 
 # Now register the new UserAdmin...
 admin.site.register(models.UserData, UserAdmin)
 admin.site.register(models.RoleAssigned)
-admin.site.register(models.UserInfo)
+admin.site.register(models.UserInfo, UserInfoAdmin)

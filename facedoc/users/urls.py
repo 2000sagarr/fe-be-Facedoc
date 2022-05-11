@@ -9,6 +9,6 @@ urlpatterns = [
     path('profile/',UserProfileView.as_view(),name='profile'),
     path('logout/', UserLogoutView.as_view(),name='logout'),
     path('roles', UserRolesView.as_view(), name = 'roles'),
-    path('userInfo', UserInfoView.as_view(), name = 'userInfo'),
+    path('userinfo', UserInfoView.as_view(), name = 'userInfo'),
     path('checkEmail', userExists, name = 'checkEmail'),
 ]
