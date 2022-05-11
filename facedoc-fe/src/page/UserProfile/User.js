@@ -11,8 +11,8 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
-import axios from 'axios';
 import './User.css';
+import axios from '../../axios';
 import Navbar from '../../components/Navbar';
 function User() {
   const [loadProfile, setLoadProfile] = useState(true);
