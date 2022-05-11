@@ -9,3 +9,31 @@
     padding: 1.5cm;
     border-style: solid;
 }
+
+input[type=file]{
+    border: 2px solid #000000;
+}
+
+input[type=file]::file-selector-button {
+    background-color: #000000;
+    color: white;
+    transition: 1s;
+}
+
+
+
+.link-btn{
+    text-decoration: none;
+    color: rgb(155, 202, 234);
+    border: solid 2px rgb(155, 202, 234);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.link-btn:hover{
+    text-decoration: none;
+    color: rgb(158, 236, 33);
+    border: solid 2px rgb(158, 236, 33);
+    border-radius: 4px;
+}
+
