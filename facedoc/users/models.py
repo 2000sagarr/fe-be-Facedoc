@@ -10,7 +10,8 @@ class RoleAssigned(models.Model):
     pancard = models.BooleanField(default = False)
     aadharcard = models.BooleanField(default = False)
     passpord = models.BooleanField(default = False)
-    
+    driving_license = models.BooleanField(default = False)
+
 
     def __str__(self):
         return self.name
