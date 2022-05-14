@@ -54,5 +54,5 @@ class UserCheckSerializer(serializers.Serializer):
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserInfo
-        fields = ['id','name']
+        fields = ['name', 'pancard', 'aadharcard', 'passport']
 
