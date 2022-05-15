@@ -1,4 +1,4 @@
-from rest_framework import permissions, generics
+from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -73,6 +73,7 @@ class UserRolesView(APIView):
 
     def get(self, request):
         serializer = RoleSerializer(models.RoleAssigned.objects.all() ,many = True)
+
         return Response(serializer.data)
 
 
@@ -119,17 +120,10 @@ def userExists(request):
     return Response(serializer.data)
 
 
-class ChangePasswordView(generics.UpdateAPIView):
 
-    queryset = UserData.objects.all()
-    permission_classes = (IsAuthenticated,)
-    serializer_class = ChangePasswordSerializer
 
-class UpdateProfileView(generics.UpdateAPIView):
 
-    queryset = UserData.objects.all()
-    permission_classes = (IsAuthenticated,)
-    serializer_class = UpdateUserSerializer
+
 
 
 
