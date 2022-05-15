@@ -6,10 +6,8 @@ from django.db.models import ImageField, FileField, signals
 from django.conf import settings
 import shutil, os, glob, re
 from distutils.dir_util import mkpath
-'''
-model : role
-'''
 
+# role model
 class RoleAssigned(models.Model):
     name = models.CharField(max_length = 100)
     pancard = models.BooleanField(default = False)
@@ -17,10 +15,10 @@ class RoleAssigned(models.Model):
     passpord = models.BooleanField(default = False)
     driving_license = models.BooleanField(default = False)
 
-
     def __str__(self):
         return self.name
 
+# super user
 class UserManager(BaseUserManager):
     def create_user(self, email, fname, mname, lname,role, phone, password=None, password2=None ):
 
@@ -69,7 +67,7 @@ class UserData(AbstractBaseUser):
     phone_regex = RegexValidator(regex=r'^(0|91)?[7-9][0-9]{9}$',
                                  message="Phone number must be entered in the format: '91723456784'. Up to 12 digits allowed.")
     phone = models.CharField(validators=[phone_regex], max_length=17, blank=False, unique=True)  # validators should be a list
-    role = models.ForeignKey(RoleAssigned, on_delete = models.CASCADE, null=True, blank=True, default=None)
+    role = models.ForeignKey(RoleAssigned, related_name='role',on_delete = models.CASCADE, null=True, blank=True, default=None)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -100,11 +98,10 @@ class UserData(AbstractBaseUser):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
+# image upload model
 class CustomImageField(ImageField):
     """Allows model instance to specify upload_to dynamically.
-
     Model class should have a method like:
-
         def get_upload_to(self, attname):
             return 'path/to/{0}'.format(self.id)
     """
@@ -125,7 +122,7 @@ class CustomImageField(ImageField):
 
     def _move_image(self, instance, **kwargs):
         """
-            Function to move the temporarily uploaded image to a more suitable directory 
+            Function to move the temporarily uploaded image to a more suitable directory
             using the model's get_upload_to() method.
         """
         if hasattr(instance, 'get_upload_to'):
@@ -143,13 +140,12 @@ class CustomImageField(ImageField):
                     setattr(instance, self.attname, dst)
                     instance.save()
 
-    def db_type(self):
+    def db_type(self, db):
         """Required by Django for ORM."""
         return 'varchar(100)'
 
+# user information model
 class UserInfo(models.Model):
-
-# id should be the name of folder (remaining task)
 
     id = models.AutoField(primary_key=True, null=False)
 
@@ -164,7 +160,7 @@ class UserInfo(models.Model):
     pancard = CustomImageField(use_key=True, upload_to='tmp', default = 'userFiles/default.png', blank=True, null = True)
     aadharcard = CustomImageField(use_key=True, upload_to='tmp', default = 'userFiles/default.png', blank=True, null = True)
     passport =  CustomImageField(use_key=True, upload_to='tmp' , default = 'userFiles/default.png', blank=True, null = True)
-
+    driving_license = CustomImageField(use_key=True, upload_to='tmp' , default = 'userFiles/default.png', blank=True, null = True)
     def __str__(self):
 
         return str(self.name) + ' ' + 'UserInfo'
