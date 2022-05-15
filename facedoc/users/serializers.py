@@ -1,6 +1,5 @@
-import  re
 from rest_framework import serializers
-from .models import UserData, RoleAssigned, UserInfo
+from .models import UserData, RoleAssigned
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
 
@@ -16,13 +15,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         password = attrs.get('password')
         password2 = attrs.get('password2')
-
         if password != password2:
             raise serializers.ValidationError("Password and Confirm Password does not match.")
-        if re.findall('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$',password):
-            pass
-        else:
-            raise serializers.ValidationError("Password must Contain 1 Uppercase character, 1 Lowercase character, 1 digit, 1 symbol")
         return attrs
 
     def create(self,validate_data):
@@ -34,12 +28,10 @@ class UserLoginSerializer(serializers.ModelSerializer):
         model=UserData
         fields=['email','password']
 
-
 class UserProfileSerializer(serializers.ModelSerializer):
   class Meta:
     model = UserData
     fields = ['id', 'email', 'fname','mname','lname','phone','role']
-
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,10 +41,3 @@ class RoleSerializer(serializers.ModelSerializer):
 
 class UserCheckSerializer(serializers.Serializer):
     email = serializers.CharField(required=False, allow_blank=True, max_length=100)
-
-
-class UserInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserInfo
-        fields = ['name', 'pancard', 'aadharcard', 'passport']
-
