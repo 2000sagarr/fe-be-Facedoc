@@ -67,9 +67,7 @@ function User() {
   };
 
   const initialFormData = Object.freeze({
-    fname: profile.fname,
-    mname: profile.mname,
-    lname: profile.lname,
+    email: profile.email,
     phone: profile.phone,
   });
   const [formData, updateFormData] = useState(initialFormData);
@@ -220,39 +218,6 @@ function User() {
                     label='Email Address'
                     name='email'
                     autoComplete='email'
-                    onChange={handleChange}
-                    sx={{ width: '50vh', marginBottom: 1 }}
-                  />
-                  <TextField
-                    variant='filled'
-                    autoComplete='given-name'
-                    name='firstName'
-                    required
-                    fullWidth
-                    id='firstName'
-                    label='First Name'
-                    onChange={handleChange}
-                    sx={{ width: '50vh', marginBottom: 1 }}
-                  />
-                  <TextField
-                    variant='filled'
-                    required
-                    fullWidth
-                    id='middleName'
-                    label='Middle Name'
-                    name='middleName'
-                    autoComplete='family-name'
-                    onChange={handleChange}
-                    sx={{ width: '50vh', marginBottom: 1 }}
-                  />
-                  <TextField
-                    variant='filled'
-                    required
-                    fullWidth
-                    id='lastName'
-                    label='Last Name'
-                    name='lastName'
-                    autoComplete='family-name'
                     onChange={handleChange}
                     sx={{ width: '50vh', marginBottom: 1 }}
                   />
