@@ -95,7 +95,7 @@ function User() {
         setProfile(res.data);
       })
       .catch((err) => console.log(err));
-  }, [profile]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
