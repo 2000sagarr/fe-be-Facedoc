@@ -26,7 +26,7 @@ function Upload() {
            }
           })
           .catch((err) => console.log(err));
-      }, [profile]);
+      }, []);
 
     return (
         <div>

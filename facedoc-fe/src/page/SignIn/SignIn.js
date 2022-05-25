@@ -164,18 +164,13 @@ export default function SignIn() {
                 Sign In
               </Button>
             </FormControl>
-            {/* <Grid container>
-              <Grid item xs>
-                <Link href='#' variant='body2'>
-                  Forgot password?
-                </Link>
-              </Grid>
+            <Grid container>
               <Grid item>
                 <Link href='/signup' variant='body2'>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-            </Grid> */}
+            </Grid>
           </Box>
         </Grid>
       </Grid>

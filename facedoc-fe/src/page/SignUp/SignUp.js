@@ -121,7 +121,7 @@ export default function SignUp() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: 'white',
-                height: '100vh',
+                height: '100vh'
               }}
             >
               <Typography
@@ -131,7 +131,7 @@ export default function SignUp() {
               >
                 Register
               </Typography>
-              <Typography component='h1' variant='h1' sx={{ fontWeight: 700 }}>
+              <Typography component='h3' variant='h1' sx={{ fontWeight: 500 }}>
                 With Us.
               </Typography>
             </div>
@@ -250,6 +250,7 @@ export default function SignUp() {
                 sx={{ width: '50vh', marginBottom: 1 }}
                 variant='filled'
               />
+              <span style={{"width" : "50vh", "color" : "red", "font-size" : "15px"}}>Password must Contain 1 Uppercase character, 1 Lowercase character, 1 digit, 1 symbol</span>
               <TextField
                 required
                 fullWidth

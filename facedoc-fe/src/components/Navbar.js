@@ -127,6 +127,14 @@ export default function MenuAppBar() {
                       Profile
                     </Link>
                   </MenuItem>
+                  <MenuItem>
+                    <Link
+                      style={{ color: 'black', textDecoration: 'none' }}
+                      to='/add-info'
+                    >
+                      Add Person Info
+                    </Link>
+                  </MenuItem>
                   <MenuItem onClick={logout}>
                     <Link
                       style={{ color: 'black', textDecoration: 'none' }}
